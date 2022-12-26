@@ -1,0 +1,4 @@
+aws-cdk-lib==2.56.1
+constructs==10.1.200
+requests==2.22.0
+python-dotenv==0.20.0
