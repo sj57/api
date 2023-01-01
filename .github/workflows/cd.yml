@@ -6,8 +6,6 @@ jobs:
   build:
     name: cd
     runs-on: ubuntu-latest
-    strategy:
-      max-concurrency: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
