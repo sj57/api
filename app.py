@@ -21,6 +21,7 @@ AWS_REGION = os.environ['AWS_REGION']
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_CDK_ACCOUNT_ID = os.environ['AWS_CDK_ACCOUNT_ID']
+API_KEY = os.environ['API_KEY']
 
 LAMBDA_FUNCTION_TIMEOUT_SECONDS = 5
 MEMORY_SIZE_MEGABYTES = 128
@@ -43,6 +44,7 @@ class SJ57CdkStack(Stack):
             runtime=aws_lambda.Runtime.PYTHON_3_8,
             environment={
                 "DISCORD_WEBHOOK": DISCORD_WEBHOOK,
+                "API_KEY": API_KEY,
             },
             retry_attempts=0,
             log_retention=aws_logs.RetentionDays.ONE_MONTH,
@@ -67,7 +69,17 @@ class SJ57CdkStack(Stack):
                 certificate=certificate,
                 security_policy=aws_apigateway.SecurityPolicy.TLS_1_2
             ),
-            default_cors_preflight_options=aws_apigateway.CorsOptions(allow_origins=aws_apigateway.Cors.ALL_ORIGINS),
+            default_cors_preflight_options=aws_apigateway.CorsOptions(
+                allow_origins=aws_apigateway.Cors.ALL_ORIGINS,
+                allow_headers=[
+                    'Content-Type',
+                    'X-Amz-Date',
+                    'Authorization',
+                    'X-Api-Key',
+                ],
+                allow_credentials=True,
+                allow_methods=['OPTIONS', 'GET', 'POST', 'PUT', 'HEAD', 'DELETE'],
+            ),
             endpoint_types=[aws_apigateway.EndpointType.REGIONAL],
             deploy_options=aws_apigateway.StageOptions(
                 metrics_enabled=True,
