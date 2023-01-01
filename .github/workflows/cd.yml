@@ -25,7 +25,7 @@ jobs:
           pip install -r requirements.txt
       - name: CDK Deploy
         run: |
-          cdk deploy --require-approval never
+          cdk deploy --require-approval never --app app
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           AWS_CDK_ACCOUNT_ID: ${{ secrets.AWS_CDK_ACCOUNT_ID }}
