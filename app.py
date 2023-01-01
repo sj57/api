@@ -54,8 +54,7 @@ class SJ57CdkStack(Stack):
             self,
             f'{STACK_NAME}-rest-api-certificate',
             domain_name=api_domain_name,
-            hosted_zone=hosted_zone,
-            region='us-east-1',
+            hosted_zone=hosted_zone
         )
 
         rest_api = aws_apigateway.RestApi(
@@ -66,8 +65,7 @@ class SJ57CdkStack(Stack):
             domain_name=aws_apigateway.DomainNameOptions(
                 domain_name=api_domain_name,
                 certificate=certificate,
-                security_policy=aws_apigateway.SecurityPolicy.TLS_1_2,
-                endpoint_type=aws_apigateway.EndpointType.EDGE,
+                security_policy=aws_apigateway.SecurityPolicy.TLS_1_2
             ),
             default_cors_preflight_options=aws_apigateway.CorsOptions(allow_origins=aws_apigateway.Cors.ALL_ORIGINS),
             endpoint_types=[aws_apigateway.EndpointType.REGIONAL],

@@ -21,7 +21,7 @@ The following environment variables must be set before deploying the stack:
 ## Deployment
 
 1. Run `cdk synth` to generate the CloudFormation template
-2. Run `cdk deploy` to deploy the stack
+2. Run `cdk deploy --require-approval never` to deploy the stack
 
 ## Testing
 
